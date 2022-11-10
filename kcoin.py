@@ -1,20 +1,26 @@
+import os
 from kucoin.client import Market
 from kucoin.client import User
 from kucoin.client import Trade
-
-import os
 from dotenv import load_dotenv
 
+
+
+#####################Global Variables ########################
+
 load_dotenv()
+base_url = 'https://api.kucoin.com'
+
+#####################End of Global Variables #################
 
 
 def get_historical_data(symbol):
-    client = Market(url='https://api.kucoin.com')
+    client = Market(url=base_url)
     markets = client.get_trade_histories(symbol)
     return markets
 
 def get_servertime():
-    client = Market(url='https://api.kucoin.com')
+    client = Market(url=base_url)
     server_time = client.get_server_timestamp()
     from datetime import datetime
     ts = int(server_time/1000)
