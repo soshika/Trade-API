@@ -21,19 +21,19 @@
 # from pprint import pprint
 # pprint(accounts)
 
-import utills.rest_responses as rest
-from http import HTTPStatus
-import datasource.redis_c as redis_client
+# import utills.rest_responses as rest
+# from http import HTTPStatus
+# import datasource.redis_c as redis_client
 
-import json
-# r = rest.REST()
-# ret = r.Rest_Response("inserted", "successfully inserted",None, HTTPStatus.CREATED)
-# print(ret)
+# import json
+# # r = rest.REST()
+# # ret = r.Rest_Response("inserted", "successfully inserted",None, HTTPStatus.CREATED)
+# # print(ret)
 
-r = redis_client.REDIS().r
+# r = redis_client.REDIS().r
 
-ans = r.set('foo1', json.dumps({'bar': "barrrrrrr"}))
-print(ans)
+# ans = r.set('foo1', json.dumps({'bar': "barrrrrrr"}))
+# print(ans)
 
-res = r.get('foo1').decode('utf8')
-print(res)
+# res = r.get('foo1').decode('utf8')
+# print(res)

@@ -2,16 +2,29 @@ from typing import Union
 from fastapi import FastAPI
 import utills.rest_responses as rest
 from http import HTTPStatus
-
+import coloredlogs, logging
 import kcoin
+
+
+#####################Global Variables ########################
 
 app = FastAPI()
 
+logger = logging.getLogger(__name__)
+coloredlogs.install(level='DEBUG', logger=logger)
+
+#####################End of Global Variables #################
+
+
 @app.get("/")
 def read_root():
+    logger.info("Enter to Root of API v1")
+    
     r_json = {"Hello": "World"}
     r =  rest.REST()
     ret = r.Rest_Response("Welcome to API v1 Kucoin-Fastmovie", "", r_json, HTTPStatus.OK)
+
+    logger.info("Close from Root of API v1")
     return ret
 
 @app.get('/server-time')
@@ -43,7 +56,7 @@ def get_accounts():
     return ret
 
 
-@app.get('/buy/{symbol}/{price}/{size}')
+@app.get('/order/buy/{symbol}/{price}/{size}')
 def buy(symbol: str, price: str, size: str, q: Union[str,None] = None):
     r_json = kcoin.buy_service(symbol, price, size)
     r =  rest.REST()
@@ -51,9 +64,13 @@ def buy(symbol: str, price: str, size: str, q: Union[str,None] = None):
     return ret
 
 
-@app.get('/sell/{symbol}/{price}/{size}')
+@app.get('/order/sell/{symbol}/{price}/{size}')
 def sell(symbol: str, price: str, size: str, q: Union[str,None] = None):
     r_json = {'data': kcoin.buy_service(symbol, price, size, 'sell')}
     r =  rest.REST()
     ret = r.Rest_Response("Sell operation is completed now.", "", r_json, HTTPStatus.OK)
     return ret
+
+@app.get('order/cancel/{order_id}')
+def cancel(order_id: str, q: Union[str,None] = None):
+    pass
