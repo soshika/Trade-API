@@ -2,9 +2,10 @@ from kucoin.client import Market
 from kucoin.client import User
 from kucoin.client import Trade
 
-API_KEY = '6362afa841a5330001d201e4'
-API_SECRET = '3dd0c2b1-ad0b-4acb-9a1e-9bd24feac8b7'
-API_PASSPHRASE = 'RogerWaters2014'
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_historical_data(symbol):
@@ -23,11 +24,17 @@ def get_servertime():
     return (datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'), ts)
 
 def get_accounts():
+    API_KEY = os.getenv('API_KEY')
+    API_SECRET = os.getenv('API_SECRET')
+    API_PASSPHRASE = os.getenv('API_PASSPHRASE')
     client = User(API_KEY, API_SECRET, API_PASSPHRASE, is_sandbox=True)
     accounts = client.get_account_list()
     return accounts
 
 def buy_service(symbol, price, size, state='buy'):
+    API_KEY = os.getenv('API_KEY')
+    API_SECRET = os.getenv('API_SECRET')
+    API_PASSPHRASE = os.getenv('API_PASSPHRASE')
     client = Trade(API_KEY, API_SECRET, API_PASSPHRASE, is_sandbox=True)
     order_id = client.create_limit_order(symbol, state, size, price)
     return order_id

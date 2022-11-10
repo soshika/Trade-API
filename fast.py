@@ -38,7 +38,6 @@ def get_historical_data(symbol: str, q: Union[str, None] = None):
 @app.get('/portfo')
 def get_accounts():
     r_json = kcoin.get_accounts()
-    print(r_json)
     r =  rest.REST()
     ret = r.Rest_Response("Account information sent successfully", "", r_json, HTTPStatus.OK)
     return ret
