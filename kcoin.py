@@ -38,3 +38,11 @@ def buy_service(symbol, price, size, state='buy'):
     client = Trade(API_KEY, API_SECRET, API_PASSPHRASE, is_sandbox=True)
     order_id = client.create_limit_order(symbol, state, size, price)
     return order_id
+
+def cancel_order(order_id):
+    API_KEY = os.getenv('API_KEY')
+    API_SECRET = os.getenv('API_SECRET')
+    API_PASSPHRASE = os.getenv('API_PASSPHRASE')
+    client = Trade(API_KEY, API_SECRET, API_PASSPHRASE, is_sandbox=True)
+    return client.cancel_order(order_id)
+    

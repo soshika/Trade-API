@@ -19,7 +19,7 @@ coloredlogs.install(level='DEBUG', logger=logger)
 @app.get("/")
 def read_root():
     logger.info("Enter to Root of API v1")
-    
+
     r_json = {"Hello": "World"}
     r =  rest.REST()
     ret = r.Rest_Response("Welcome to API v1 Kucoin-Fastmovie", "", r_json, HTTPStatus.OK)
@@ -73,4 +73,11 @@ def sell(symbol: str, price: str, size: str, q: Union[str,None] = None):
 
 @app.get('order/cancel/{order_id}')
 def cancel(order_id: str, q: Union[str,None] = None):
-    pass
+    logger.info("Enter to Cancel-Order controller successfully")
+    
+    r_json = kcoin.cancel_order(order_id)
+    r =  rest.REST()
+    ret = r.Rest_Response("Buy operation is completed now.", "", r_json, HTTPStatus.OK)
+
+    logger.info("Close from Cancel-Order controller successfully")
+    return ret
